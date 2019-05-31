@@ -23,7 +23,7 @@ export default class Main extends Component {
 
     return (
       <div className="container">
-        <h1>Gatsby Preview</h1>
+        <h1>Gatsby Cloud</h1>
         {instanceName
           ? (
             <a href={instanceUrl} alt="Instance url" target="_blank" rel="noopener noreferrer">
