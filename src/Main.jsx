@@ -18,13 +18,12 @@ export default class Main extends Component {
 
   render() {
     const { plugin } = this.props;
-    const { parameters: { global: { instanceName } } } = plugin;
-    const instanceUrl = `https://${instanceName}.gtsb.io`;
+    const { parameters: { global: { instanceUrl } } } = plugin;
 
     return (
       <div className="container">
         <h1>Gatsby Cloud</h1>
-        {instanceName
+        {instanceUrl
           ? (
             <a href={instanceUrl} alt="Instance url" target="_blank" rel="noopener noreferrer">
               <button
@@ -37,7 +36,7 @@ export default class Main extends Component {
             </a>
           )
           : (
-            <p>Missing required instance name. Please check your plugin settings.</p>
+            <p>Missing required Gatsby Cloud instance url. Please check your plugin settings.</p>
           )
         }
         <div className="powered__by">

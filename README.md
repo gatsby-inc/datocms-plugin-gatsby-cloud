@@ -4,7 +4,7 @@ Plugin that allows Gatsby Cloud instance updates
 
 ## Configuration
 
-Please specify a Gatsby Cloud preview instance name on the plugin global settings.
+Please specify a Gatsby Cloud preview instance url on the plugin global settings.
 
 ![Configuration screenshot](./config-screenshot.png)
 

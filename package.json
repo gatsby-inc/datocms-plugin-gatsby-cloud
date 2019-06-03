@@ -72,12 +72,12 @@
           "hint": "Shows debug messages in console"
         },
         {
-          "id": "instanceName",
-          "label": "Instance name",
+          "id": "instanceUrl",
+          "label": "Instance url",
           "type": "string",
           "required": true,
           "default": false,
-          "hint": "Instance name (top level domain of Preview instance url)"
+          "hint": "The url of Gatsby Cloud instance"
         }
       ],
       "instance": []
