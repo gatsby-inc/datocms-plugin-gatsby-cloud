@@ -1,16 +1,16 @@
 # Gatsby Cloud DatoCMS plugin
 
-Plugin that allows Gatsby Cloud instance updates
+Plugin that allows access to Gatsby Cloud instances
 
 ## Configuration
 
-Please specify a Gatsby Cloud preview instance url on the plugin global settings.
+Please specify a Gatsby Cloud preview instance url (required) and auth token (optional) on the plugin global settings.
 
-![Configuration screenshot](./config-screenshot.png)
+![Configuration screenshot](config-screenshot.png)
 
 ## Plugin 
 
-Once you've configured the plugin, you will be able to see it in the sidebar.
+Once you've configured the plugin, you will be able to see it as a field add on for slug fields.
 
-![Plugin screenshot](./plugin-screenshot.png)
+![Plugin screenshot](plugin-screenshot.png)
 

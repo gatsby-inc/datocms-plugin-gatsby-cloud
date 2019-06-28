@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Gatsby from './Gatsby';
+import { ExtensionUI } from '@gatsby-cloud-pkg/gatsby-cms-extension-base';
 
 import connectToDatoCms from './connectToDatoCms';
 import './style.sass';
@@ -18,31 +18,17 @@ export default class Main extends Component {
 
   render() {
     const { plugin } = this.props;
-    const { parameters: { global: { instanceUrl } } } = plugin;
+    const { fieldPath, parameters: { global: { instanceUrl, authToken } } } = plugin;
+    const contentSlug = plugin.getFieldValue(fieldPath);
 
     return (
       <div className="container">
         <h1>Gatsby Cloud</h1>
-        {instanceUrl
-          ? (
-            <a href={instanceUrl} alt="Instance url" target="_blank" rel="noopener noreferrer">
-              <button
-                type="button"
-                className="preview__open"
-                onClick={() => {}}
-              >
-                Open Preview
-              </button>
-            </a>
-          )
-          : (
-            <p>Missing required Gatsby Cloud instance url. Please check your plugin settings.</p>
-          )
-        }
-        <div className="powered__by">
-          <p>Powered by: </p>
-          <Gatsby />
-        </div>
+        <ExtensionUI
+          contentSlug={contentSlug}
+          previewInstanceUrl={instanceUrl}
+          authToken={authToken}
+        />
       </div>
     );
   }
