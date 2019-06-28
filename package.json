@@ -15,22 +15,9 @@
   },
   "keywords": [
     "datocms",
+    "field-addon",
     "datocms-plugin",
-    "sidebar",
-    "json-field",
-    "text-field",
-    "boolean-field",
-    "float-field",
-    "integer-field",
-    "string-field",
-    "links-field",
-    "link-field",
-    "date-field",
-    "date-time-field",
-    "video-field",
-    "color-field",
-    "seo-field",
-    "lat-lon-field",
+    "slug-field",
     "gatsby"
   ],
   "files": [
@@ -44,22 +31,9 @@
     "previewImage": "docs/preview.gif",
     "coverImage": "docs/cover.png",
     "entryPoint": "dist/index.html",
-    "pluginType": "sidebar",
+    "pluginType": "field_addon",
     "fieldTypes": [
-      "json",
-      "text",
-      "boolean",
-      "float",
-      "integer",
-      "string",
-      "links",
-      "link",
-      "date",
-      "date_time",
-      "video",
-      "color",
-      "seo",
-      "lat_lon"
+      "slug"
     ],
     "parameters": {
       "global": [
@@ -77,7 +51,15 @@
           "type": "string",
           "required": true,
           "default": false,
-          "hint": "The url of Gatsby Cloud instance"
+          "hint": "The url of a Gatsby Cloud instance"
+        },
+        {
+          "id": "authToken",
+          "label": "Auth token",
+          "type": "string",
+          "required": false,
+          "default": false,
+          "hint": "The authentication token for a private Gatsby Cloud instance"
         }
       ],
       "instance": []
