@@ -15,9 +15,9 @@
   },
   "keywords": [
     "datocms",
-    "field-addon",
+    "sidebar",
     "datocms-plugin",
-    "slug-field",
+    "json-field",
     "gatsby"
   ],
   "files": [
@@ -31,9 +31,9 @@
     "previewImage": "docs/preview.gif",
     "coverImage": "docs/cover.png",
     "entryPoint": "dist/index.html",
-    "pluginType": "field_addon",
+    "pluginType": "sidebar",
     "fieldTypes": [
-      "slug"
+      "json"
     ],
     "parameters": {
       "global": [

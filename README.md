@@ -10,7 +10,7 @@ Please specify a Gatsby Cloud preview instance url (required) and auth token (op
 
 ## Plugin 
 
-Once you've configured the plugin, you will be able to see it as a field add on for slug fields.
+Once you've configured the plugin, you will be able to see it as a sidebar widget. 
 
 ![Plugin screenshot](plugin-screenshot.png)
 
