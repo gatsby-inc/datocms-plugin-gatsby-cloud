@@ -4,7 +4,7 @@ Plugin that allows access to Gatsby Cloud instances
 
 ## Configuration
 
-Please specify a Gatsby Cloud preview instance url (required) and auth token (optional) on the plugin global settings.
+Please specify a Gatsby Cloud preview instance url (required) and auth token (optional) in the plugin global settings.
 
 ![Configuration screenshot](config-screenshot.png)
 
