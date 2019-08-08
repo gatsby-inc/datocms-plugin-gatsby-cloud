@@ -58,7 +58,7 @@ export default class Main extends Component {
     const { plugin } = this.props;
     const {
       parameters: {
-        global: { siteUrl, authToken },
+        global: { instanceUrl, authToken },
       },
     } = plugin;
     const { initalValue, contentSlug } = this.state;
@@ -68,7 +68,7 @@ export default class Main extends Component {
         <h1>Gatsby Cloud</h1>
         <ExtensionUI
           contentSlug={contentSlug || initalValue}
-          siteUrl={siteUrl}
+          siteUrl={instanceUrl}
           authToken={authToken}
         />
       </div>

@@ -46,7 +46,7 @@
           "hint": "Shows debug messages in console"
         },
         {
-          "id": "siteUrl",
+          "id": "instanceUrl",
           "label": "Site url",
           "type": "string",
           "required": true,
