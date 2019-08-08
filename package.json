@@ -2,7 +2,7 @@
   "name": "datocms-plugin-gatsby-cloud",
   "homepage": "https://github.com/gatsby-inc/datocms-plugin-gatsby-cloud",
   "version": "0.1.3",
-  "description": "Plugin that allows access to Gatsby Cloud instances",
+  "description": "Plugin that allows access to Gatsby Cloud sites",
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"yarn dev\" \"yarn localtunnel\"",
@@ -46,12 +46,12 @@
           "hint": "Shows debug messages in console"
         },
         {
-          "id": "instanceUrl",
-          "label": "Instance url",
+          "id": "siteUrl",
+          "label": "Site url",
           "type": "string",
           "required": true,
           "default": false,
-          "hint": "The url of a Gatsby Cloud instance"
+          "hint": "The url of a Gatsby Cloud site"
         },
         {
           "id": "authToken",
@@ -101,7 +101,7 @@
     "yo": "^2.0.5"
   },
   "dependencies": {
-    "@gatsby-cloud-pkg/gatsby-cms-extension-base": "^0.0.19",
+    "@gatsby-cloud-pkg/gatsby-cms-extension-base": "^0.0.25",
     "classname": "^0.0.0",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
