@@ -68,7 +68,7 @@ export default class Main extends Component {
         <h1>Gatsby Cloud</h1>
         <ExtensionUI
           contentSlug={contentSlug || initalValue}
-          siteUrl={instanceUrl}
+          previewUrl={instanceUrl}
           authToken={authToken}
         />
       </div>
