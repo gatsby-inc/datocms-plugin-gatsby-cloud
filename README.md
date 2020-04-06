@@ -4,7 +4,13 @@ Plugin that allows access to Gatsby Preview instances
 
 ## Configuration
 
-In Dato CMS, go to settings -> Models and make sure to "Enable draft/published system" so that changes you save are available in your Gatsby Preview, but not pushed to production.
+In Dato CMS, when your site is served to a DatoCMS subdomain. Click on "Enter project" then go to settings and click on the  Models option in the sidebar.  
+
+This should open up your "product name" settings. Click on the settings of your product and select additional settings.
+
+This is where the "Enable draft/published system" Option is selected. So that changes you save are available in your Gatsby Preview, but not pushed to production.
+
+![Enable draft/published system](https://res.cloudinary.com/ekwuno/image/upload/v1586171014/Screenshot_2020-04-06_at_12.01.23.png)
 
 Please specify a Gatsby Preview instance url (required) and auth token (optional) in the plugin global settings.
 
