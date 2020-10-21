@@ -27,17 +27,47 @@ export default class Main extends Component {
 
   componentDidMount() {
     const { plugin } = this.props;
-    const slugField = plugin.itemType.relationships.fields.data
-      .map(link => plugin.fields[link.id])
-      .find(field => field.attributes.field_type === 'slug');
-    if (slugField) {
-      const fieldPath = slugField.attributes.api_key;
-      this.setState({
-        slugField,
-        initalValue: plugin.getFieldValue(fieldPath),
-      });
-      this.unsubscribe = plugin.addFieldChangeListener(fieldPath, this.slugChange);
+
+    const {
+      itemType,
+      fields,
+      locale,
+      field,
+      parameters: {
+        global: { developmentMode },
+      },
+    } = plugin;
+
+    const slugField = itemType.relationships.fields.data
+      .map(link => fields[link.id])
+      .find(f => f.attributes.field_type === 'slug');
+
+    if (!slugField) {
+      if (developmentMode) {
+        console.error('Cannot find a slug field in this model!');
+      }
+
+      return;
     }
+
+    if (slugField.attributes.localized && !field.attributes.localized) {
+      if (developmentMode) {
+        console.error(`Since the "${slugField.attributes.api_key}" slug field is localized, so needs to be the "${field.attributes.api_key}" field!`);
+      }
+
+      return;
+    }
+
+    const fieldPath = slugField.attributes.localized
+      ? `${slugField.attributes.api_key}.${locale}`
+      : slugField.attributes.api_key;
+
+    this.setState({
+      slugField,
+      initalValue: plugin.getFieldValue(fieldPath),
+    });
+
+    this.unsubscribe = plugin.addFieldChangeListener(fieldPath, this.slugChange);
   }
 
   componentWillUnmount() {

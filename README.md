@@ -22,3 +22,5 @@ Once you've configured the plugin, you will be able to see it as a sidebar widge
 
 ![Plugin screenshot](https://user-images.githubusercontent.com/18426780/61498855-37e35a00-a982-11e9-8201-ab96be74f1f1.png)
 
+Please note that if the slug field is localized in a specific model, so needs to be the JSON field on which the plugin gets installed.
+
