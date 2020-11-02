@@ -27,6 +27,7 @@ export default class Main extends Component {
 
   componentDidMount() {
     const { plugin } = this.props;
+    const urlParts = [];
 
     const {
       itemType,
@@ -34,13 +35,26 @@ export default class Main extends Component {
       locale,
       field,
       parameters: {
-        global: { developmentMode },
+        global: { developmentMode, useLocalePath },
       },
     } = plugin;
+
+    if (useLocalePath) urlParts.push(locale);
 
     const slugField = itemType.relationships.fields.data
       .map(link => fields[link.id])
       .find(f => f.attributes.field_type === 'slug');
+
+    const modelslugField = itemType.relationships.fields.data
+      .map(link => fields[link.id])
+      .find(f => f.attributes.api_key === 'modelslug');
+
+    const modelslugValue = modelslugField.attributes.localized
+      ? `${modelslugField.attributes.api_key}.${locale}`
+      : modelslugField.attributes.api_key;
+
+    const pathPrefixValue = plugin.getFieldValue(modelslugValue);
+    if (pathPrefixValue) urlParts.push(pathPrefixValue);
 
     if (!slugField) {
       if (developmentMode) {
@@ -62,9 +76,11 @@ export default class Main extends Component {
       ? `${slugField.attributes.api_key}.${locale}`
       : slugField.attributes.api_key;
 
+    if (fieldPath) urlParts.push(plugin.getFieldValue(fieldPath));
+
     this.setState({
       slugField,
-      initalValue: plugin.getFieldValue(fieldPath),
+      initalValue: urlParts.join('/'),
     });
 
     this.unsubscribe = plugin.addFieldChangeListener(fieldPath, this.slugChange);
