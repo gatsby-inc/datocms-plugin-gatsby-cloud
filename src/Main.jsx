@@ -35,11 +35,11 @@ export default class Main extends Component {
       locale,
       field,
       parameters: {
-        global: { developmentMode, useLocalePath },
+        global: { developmentMode, useLocalePath, skipLocalePath },
       },
     } = plugin;
 
-    if (useLocalePath) urlParts.push(locale);
+    if (useLocalePath && skipLocalePath !== locale) urlParts.push(locale);
 
     const slugField = itemType.relationships.fields.data
       .map(link => fields[link.id])
