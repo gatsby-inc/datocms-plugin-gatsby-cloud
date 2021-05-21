@@ -5,11 +5,15 @@ import { ExtensionUI } from '@gatsby-cloud-pkg/gatsby-cms-extension-base';
 import connectToDatoCms from './connectToDatoCms';
 import './style.sass';
 
-@connectToDatoCms(plugin => ({
-  developmentMode: plugin.parameters.global.developmentMode,
-  fieldValue: plugin.getFieldValue(plugin.fieldPath),
-  plugin,
-}))
+// eslint-disable-next-line arrow-parens
+@connectToDatoCms(plugin => {
+  console.log('pluging opts', plugin);
+  return {
+    developmentMode: plugin.parameters.global.developmentMode,
+    fieldValue: plugin.getFieldValue(plugin.fieldPath),
+    plugin,
+  };
+})
 export default class Main extends Component {
   static propTypes = {
     plugin: PropTypes.object,
@@ -23,6 +27,7 @@ export default class Main extends Component {
       slugField: '',
     };
     this.slugChange = this.slugChange.bind(this);
+    console.log('contructing this bad boi class.....');
   }
 
   componentDidMount() {
@@ -62,6 +67,8 @@ export default class Main extends Component {
       ? `${slugField.attributes.api_key}.${locale}`
       : slugField.attributes.api_key;
 
+    console.log('things and stuff', slugField, fieldPath);
+
     this.setState({
       slugField,
       initalValue: plugin.getFieldValue(fieldPath),
@@ -92,6 +99,10 @@ export default class Main extends Component {
       },
     } = plugin;
     const { initalValue, contentSlug } = this.state;
+
+    console.log('props', this.props);
+    console.log('state', this.state);
+    console.log('more', instanceUrl, authToken);
 
     return (
       <div className="container">
