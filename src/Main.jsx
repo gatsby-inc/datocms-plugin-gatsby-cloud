@@ -21,6 +21,7 @@ export default class Main extends Component {
       contentSlug: '',
       initalValue: '',
       slugField: '',
+      manifestId: '',
     };
     this.slugChange = this.slugChange.bind(this);
   }
@@ -41,6 +42,8 @@ export default class Main extends Component {
     const slugField = itemType.relationships.fields.data
       .map(link => fields[link.id])
       .find(f => f.attributes.field_type === 'slug');
+
+    // this.setManifestId()
 
     if (!slugField) {
       if (developmentMode) {
@@ -83,12 +86,52 @@ export default class Main extends Component {
     });
   }
 
+  setManifestId = () => {
+    // @todo: figure out how to get id and updatedAt from the content
+    // const { id, updatedAt } = content;
+    const manifestId = `${id}-${updatedAt}`;
+    this.setState({ manifestId });
+  }
+
+  getPreviewUrl = () => {
+    const { plugin } = this.props;
+    const {
+      parameters: {
+        global: { instanceUrl, contentSyncUrl },
+      },
+    } = plugin;
+    const { manifestId } = this.state
+
+    let previewUrl = instanceUrl
+
+    if (contentSyncUrl && manifestId) {
+      previewUrl = `${contentSyncUrl}/gatsby-source-datocms/${manifestId}`;
+    }
+
+    return previewUrl;
+  }
+  
+  handleContentSync() {
+    // open a new window with a specific ID
+    // the window will open with previewUrl
+    // Do we need to wait to get up to date data?
+    // 
+
+      //   previewUrl = this.getPreviewUrl()
+
+      //   console.info(`new preview url ${newPreviewUrl}`)
+      //   window.open(previewUrl, GATSBY_PREVIEW_TAB_ID)
+
+      //   this.refreshPreview();
+      //   this.setState({ buttonDisabled: false })
+  }
+
 
   render() {
     const { plugin } = this.props;
     const {
       parameters: {
-        global: { instanceUrl, authToken },
+        global: { instanceUrl, contentSyncUrl, authToken },
       },
     } = plugin;
     const { initalValue, contentSlug } = this.state;
@@ -100,6 +143,11 @@ export default class Main extends Component {
           contentSlug={contentSlug || initalValue}
           previewUrl={instanceUrl}
           authToken={authToken}
+          onOpenPreviewButtonClick={
+            !!contentSyncUrl 
+              ? this.handleContentSync
+              : () => {}
+          }
         />
       </div>
     );
