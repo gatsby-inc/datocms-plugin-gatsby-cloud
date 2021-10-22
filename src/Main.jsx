@@ -5,6 +5,8 @@ import { ExtensionUI } from '@gatsby-cloud-pkg/gatsby-cms-extension-base';
 import connectToDatoCms from './connectToDatoCms';
 import './style.sass';
 
+const GATSBY_PREVIEW_TAB_ID = 'GATSBY_TAB';
+
 @connectToDatoCms(plugin => ({
   developmentMode: plugin.parameters.global.developmentMode,
   fieldValue: plugin.getFieldValue(plugin.fieldPath),
@@ -22,6 +24,7 @@ export default class Main extends Component {
       initalValue: '',
       slugField: '',
       manifestId: '',
+      // buttonDisabled: false,
     };
     this.slugChange = this.slugChange.bind(this);
   }
@@ -31,6 +34,7 @@ export default class Main extends Component {
 
     const {
       itemType,
+      itemId,
       fields,
       locale,
       field,
@@ -43,7 +47,7 @@ export default class Main extends Component {
       .map(link => fields[link.id])
       .find(f => f.attributes.field_type === 'slug');
 
-    // this.setManifestId()
+    this.setManifestId(itemId);
 
     if (!slugField) {
       if (developmentMode) {
@@ -80,12 +84,12 @@ export default class Main extends Component {
     }
   }
 
-  // setManifestId = () => {
-  //   // @todo: figure out how to get id and updatedAt from the content
-  //   // const { id, updatedAt } = content;
-  //   const manifestId = `${id}-${updatedAt}`;
-  //   this.setState({ manifestId });
-  // }
+  setManifestId = (itemId) => {
+    // @todo: figure out how to get id and updatedAt from the content
+    // const { id, updatedAt } = content;
+    const manifestId = `${itemId}`;
+    this.setState({ manifestId });
+  }
 
   getPreviewUrl = () => {
     const { plugin } = this.props;
@@ -105,25 +109,29 @@ export default class Main extends Component {
     return previewUrl;
   }
 
-  slugChange(newValue) {
-    this.setState({
-      contentSlug: newValue,
-    });
-  }
-
-  handleContentSync() {
+  handleContentSync = () => {
     // open a new window with a specific ID
     // the window will open with previewUrl
     // Do we need to wait to get up to date data?
     //
+    // const { buttonDisabled } = this.state;
 
-    //   previewUrl = this.getPreviewUrl()
+    // if (buttonDisabled) {
+    //   return;
+    // }
 
-    //   console.info(`new preview url ${newPreviewUrl}`)
-    //   window.open(previewUrl, GATSBY_PREVIEW_TAB_ID)
+    // this.setState({ buttonDisabled: false });
 
-    //   this.refreshPreview();
-    //   this.setState({ buttonDisabled: false })
+    const previewUrl = this.getPreviewUrl();
+
+    console.info(`opening preview url ${previewUrl}`);
+    window.open(previewUrl, GATSBY_PREVIEW_TAB_ID);
+  }
+
+  slugChange(newValue) {
+    this.setState({
+      contentSlug: newValue,
+    });
   }
 
 
@@ -131,7 +139,7 @@ export default class Main extends Component {
     const { plugin } = this.props;
     const {
       parameters: {
-        global: { instanceUrl, contentSyncUrl, authToken },
+        global: { contentSyncUrl, authToken },
       },
     } = plugin;
     const { initalValue, contentSlug } = this.state;
@@ -142,8 +150,9 @@ export default class Main extends Component {
       <div className="container">
         <h1>Gatsby Cloud</h1>
         <ExtensionUI
+          disablePreviewOpen={!!contentSyncUrl}
           contentSlug={contentSlug || initalValue}
-          previewUrl={instanceUrl}
+          previewUrl={this.getPreviewUrl()}
           authToken={authToken}
           onOpenPreviewButtonClick={
             contentSyncUrl
