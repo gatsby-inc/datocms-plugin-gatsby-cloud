@@ -943,10 +943,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.3.tgz#dfa0c92efe44a1d1a7974fb49ffeb40ef2da5a27"
   integrity sha512-zVgvPwGK7c1aVdUVc9Qv7SqepOGRDrqCw7KZPSZziWGxSlbII3gmvGLPzLX4d0n0BMbamBacUrN22zOMyFFEkQ==
 
-"@gatsby-cloud-pkg/gatsby-cms-extension-base@^0.0.27":
-  version "0.0.27"
-  resolved "https://registry.yarnpkg.com/@gatsby-cloud-pkg/gatsby-cms-extension-base/-/gatsby-cms-extension-base-0.0.27.tgz#39993226119a34b6df17acde72514162177c8f64"
-  integrity sha512-R+46FsBtFIhSImXh55ir4+hufTLFVRJ/GZIfPxzuG735HUq6+dRxvD5HjboRi1446C+bOaegZE56xf44kEEmxw==
+"@gatsby-cloud-pkg/gatsby-cms-extension-base@^0.0.50":
+  version "0.0.50"
+  resolved "https://registry.yarnpkg.com/@gatsby-cloud-pkg/gatsby-cms-extension-base/-/gatsby-cms-extension-base-0.0.50.tgz#f67483572243e3f045986b01f47324f6ba2d3dc3"
+  integrity sha512-BsvMKSqfYAHLV0St00xmYPfSUiAt2aMCM2UhSWxbttKtvHEifzz2aQzOpxEQ1hjvkG9l2UnPshAW1QxmG0M8gA==
   dependencies:
     "@emotion/core" "^10.0.10"
     "@emotion/styled" "^10.0.12"

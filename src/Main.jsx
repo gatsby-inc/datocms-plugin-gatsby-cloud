@@ -80,18 +80,12 @@ export default class Main extends Component {
     }
   }
 
-  slugChange(newValue) {
-    this.setState({
-      contentSlug: newValue,
-    });
-  }
-
-  setManifestId = () => {
-    // @todo: figure out how to get id and updatedAt from the content
-    // const { id, updatedAt } = content;
-    const manifestId = `${id}-${updatedAt}`;
-    this.setState({ manifestId });
-  }
+  // setManifestId = () => {
+  //   // @todo: figure out how to get id and updatedAt from the content
+  //   // const { id, updatedAt } = content;
+  //   const manifestId = `${id}-${updatedAt}`;
+  //   this.setState({ manifestId });
+  // }
 
   getPreviewUrl = () => {
     const { plugin } = this.props;
@@ -100,9 +94,9 @@ export default class Main extends Component {
         global: { instanceUrl, contentSyncUrl },
       },
     } = plugin;
-    const { manifestId } = this.state
+    const { manifestId } = this.state;
 
-    let previewUrl = instanceUrl
+    let previewUrl = instanceUrl;
 
     if (contentSyncUrl && manifestId) {
       previewUrl = `${contentSyncUrl}/gatsby-source-datocms/${manifestId}`;
@@ -110,20 +104,26 @@ export default class Main extends Component {
 
     return previewUrl;
   }
-  
+
+  slugChange(newValue) {
+    this.setState({
+      contentSlug: newValue,
+    });
+  }
+
   handleContentSync() {
     // open a new window with a specific ID
     // the window will open with previewUrl
     // Do we need to wait to get up to date data?
-    // 
+    //
 
-      //   previewUrl = this.getPreviewUrl()
+    //   previewUrl = this.getPreviewUrl()
 
-      //   console.info(`new preview url ${newPreviewUrl}`)
-      //   window.open(previewUrl, GATSBY_PREVIEW_TAB_ID)
+    //   console.info(`new preview url ${newPreviewUrl}`)
+    //   window.open(previewUrl, GATSBY_PREVIEW_TAB_ID)
 
-      //   this.refreshPreview();
-      //   this.setState({ buttonDisabled: false })
+    //   this.refreshPreview();
+    //   this.setState({ buttonDisabled: false })
   }
 
 
@@ -136,6 +136,8 @@ export default class Main extends Component {
     } = plugin;
     const { initalValue, contentSlug } = this.state;
 
+    console.log(plugin);
+
     return (
       <div className="container">
         <h1>Gatsby Cloud</h1>
@@ -144,7 +146,7 @@ export default class Main extends Component {
           previewUrl={instanceUrl}
           authToken={authToken}
           onOpenPreviewButtonClick={
-            !!contentSyncUrl 
+            contentSyncUrl
               ? this.handleContentSync
               : () => {}
           }
