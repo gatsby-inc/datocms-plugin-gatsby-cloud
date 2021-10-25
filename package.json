@@ -91,8 +91,7 @@
     "html-webpack-plugin": "^3.2.0",
     "localtunnel": "^1.9.1",
     "mini-css-extract-plugin": "^0.4.3",
-    "node-sass": "^4.9.3",
-    "sass-loader": "^7.1.0",
+    "sass-loader": "^12.2.0",
     "serve": "^10.0.2",
     "style-loader": "^0.23.0",
     "webpack": "^4.16.1",
@@ -105,7 +104,8 @@
     "classname": "^0.0.0",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
-    "react-dom": "^16.5.2"
+    "react-dom": "^16.5.2",
+    "sass": "^1.43.3"
   },
   "resolutions": {
     "eslint-utils": ">=1.4.1",
