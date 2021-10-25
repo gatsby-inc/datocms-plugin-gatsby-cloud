@@ -35,6 +35,7 @@ export default class Main extends Component {
     const {
       itemType,
       itemId,
+      item,
       fields,
       locale,
       field,
@@ -43,11 +44,13 @@ export default class Main extends Component {
       },
     } = plugin;
 
+    console.log(item.meta.updated_at);
+
     const slugField = itemType.relationships.fields.data
       .map(link => fields[link.id])
       .find(f => f.attributes.field_type === 'slug');
 
-    this.setManifestId(itemId);
+    this.setManifestId(itemId, item);
 
     if (!slugField) {
       if (developmentMode) {
@@ -77,6 +80,22 @@ export default class Main extends Component {
     this.unsubscribe = plugin.addFieldChangeListener(fieldPath, this.slugChange);
   }
 
+  componentDidUpdate(prevProps) {
+    console.log('prev Props', prevProps);
+    const { plugin: prevPlugin } = prevProps;
+    const { plugin } = this.props;
+    const { itemId, item } = plugin;
+
+    const getUpdatedAt = (currentPlugin) => {
+      const { item: currentItem } = currentPlugin;
+      return currentItem.meta.updatedAt;
+    };
+
+    if (getUpdatedAt(plugin) !== getUpdatedAt(prevPlugin)) {
+      this.setManifestId(itemId, item);
+    }
+  }
+
   componentWillUnmount() {
     const { slugField } = this.state;
     if (slugField) {
@@ -84,10 +103,8 @@ export default class Main extends Component {
     }
   }
 
-  setManifestId = (itemId) => {
-    // @todo: figure out how to get id and updatedAt from the content
-    // const { id, updatedAt } = content;
-    const manifestId = `${itemId}`;
+  setManifestId = (itemId, item) => {
+    const manifestId = `${itemId}-${item.meta.updated_at}`;
     this.setState({ manifestId });
   }
 
@@ -113,7 +130,7 @@ export default class Main extends Component {
     // open a new window with a specific ID
     // the window will open with previewUrl
     // Do we need to wait to get up to date data?
-    //
+    // left in buttonDisabled if we need to use
     // const { buttonDisabled } = this.state;
 
     // if (buttonDisabled) {
