@@ -59,7 +59,7 @@
           "type": "string",
           "required": false,
           "default": false,
-          "hint": "https://gatsbyjs.com/content-sync/#{site_id}"
+          "hint": "Find this in your Gatsby Cloud site settings"
         },
         {
           "id": "authToken",
