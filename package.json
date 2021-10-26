@@ -57,7 +57,7 @@
           "id": "contentSyncUrl",
           "label" : "Content Sync URL",
           "type": "string",
-          "required": true,
+          "required": false,
           "default": false,
           "hint": "https://gatsbyjs.com/content-sync/#{site_id}"
         },
