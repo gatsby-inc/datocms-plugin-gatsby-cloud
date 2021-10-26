@@ -49,7 +49,7 @@
           "id": "instanceUrl",
           "label": "Gatsby Preview instance url",
           "type": "string",
-          "required": false,
+          "required": true,
           "default": false,
           "hint": "The url of a Gatsby Cloud Preview instance"
         },
@@ -57,7 +57,7 @@
           "id": "contentSyncUrl",
           "label": "Content Sync URL",
           "type": "string",
-          "required": true,
+          "required": false,
           "default": false,
           "hint": "https://gatsbyjs.com/content-sync/#{site_id}"
         },
