@@ -124,7 +124,7 @@ export default class Main extends Component {
     const previewUrl = this.getPreviewUrl();
 
     console.info(`opening preview url ${previewUrl}`);
-    window.open(previewUrl, GATSBY_PREVIEW_TAB_ID);
+    window.open(previewUrl);
   }
 
   slugChange(newValue) {
