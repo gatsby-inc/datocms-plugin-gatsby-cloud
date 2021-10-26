@@ -54,6 +54,14 @@
           "hint": "The url of a Gatsby Cloud Preview instance"
         },
         {
+          "id": "contentSyncUrl",
+          "label" : "Content Sync URL",
+          "type": "string",
+          "required": true,
+          "default": false,
+          "hint": "https://gatsbyjs.com/content-sync/#{site_id}"
+        },
+        {
           "id": "authToken",
           "label": "Auth token",
           "type": "string",
