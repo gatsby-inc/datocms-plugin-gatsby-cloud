@@ -5,6 +5,8 @@ import { ExtensionUI } from '@gatsby-cloud-pkg/gatsby-cms-extension-base';
 import connectToDatoCms from './connectToDatoCms';
 import './style.sass';
 
+const GATSBY_PREVIEW_TAB_ID = 'GATSBY_TAB';
+
 @connectToDatoCms(plugin => ({
   developmentMode: plugin.parameters.global.developmentMode,
   fieldValue: plugin.getFieldValue(plugin.fieldPath),
@@ -124,7 +126,7 @@ export default class Main extends Component {
     const previewUrl = this.getPreviewUrl();
 
     console.info(`opening preview url ${previewUrl}`);
-    window.open(previewUrl);
+    window.open(GATSBY_PREVIEW_TAB_ID, previewUrl);
   }
 
   slugChange(newValue) {
