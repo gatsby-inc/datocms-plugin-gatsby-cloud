@@ -55,11 +55,11 @@
         },
         {
           "id": "contentSyncUrl",
-          "label": "Content Sync URL",
+          "label": "Content Sync URL (BETA Feature)",
           "type": "string",
           "required": false,
           "default": false,
-          "hint": "Find this in your Gatsby Cloud site settings"
+          "hint": "https://gatsby.dev/datocms-preview-docs"
         },
         {
           "id": "authToken",
