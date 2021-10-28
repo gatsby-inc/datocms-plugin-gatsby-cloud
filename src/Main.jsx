@@ -5,6 +5,8 @@ import { ExtensionUI } from '@gatsby-cloud-pkg/gatsby-cms-extension-base';
 import connectToDatoCms from './connectToDatoCms';
 import './style.sass';
 
+const GATSBY_PREVIEW_TAB_ID = 'GATSBY_TAB';
+
 @connectToDatoCms(plugin => ({
   developmentMode: plugin.parameters.global.developmentMode,
   fieldValue: plugin.getFieldValue(plugin.fieldPath),
@@ -21,6 +23,7 @@ export default class Main extends Component {
       contentSlug: '',
       initalValue: '',
       slugField: '',
+      manifestId: '',
     };
     this.slugChange = this.slugChange.bind(this);
   }
@@ -30,6 +33,8 @@ export default class Main extends Component {
 
     const {
       itemType,
+      itemId,
+      item,
       fields,
       locale,
       field,
@@ -41,6 +46,8 @@ export default class Main extends Component {
     const slugField = itemType.relationships.fields.data
       .map(link => fields[link.id])
       .find(f => f.attributes.field_type === 'slug');
+
+    this.setManifestId(itemId, item);
 
     if (!slugField) {
       if (developmentMode) {
@@ -70,11 +77,56 @@ export default class Main extends Component {
     this.unsubscribe = plugin.addFieldChangeListener(fieldPath, this.slugChange);
   }
 
+  componentDidUpdate(prevProps) {
+    const { plugin: prevPlugin } = prevProps;
+    const { plugin } = this.props;
+    const { itemId, item } = plugin;
+
+    const getUpdatedAt = (currentPlugin) => {
+      const { item: currentItem } = currentPlugin;
+      return currentItem.meta.updatedAt;
+    };
+
+    if (getUpdatedAt(plugin) !== getUpdatedAt(prevPlugin)) {
+      this.setManifestId(itemId, item);
+    }
+  }
+
   componentWillUnmount() {
     const { slugField } = this.state;
     if (slugField) {
       this.unsubscribe();
     }
+  }
+
+  setManifestId = (itemId, item) => {
+    const manifestId = `${itemId}-${item.meta.updated_at}`;
+    this.setState({ manifestId });
+  }
+
+  getPreviewUrl = () => {
+    const { plugin } = this.props;
+    const {
+      parameters: {
+        global: { instanceUrl, contentSyncUrl },
+      },
+    } = plugin;
+    const { manifestId } = this.state;
+
+    let previewUrl = instanceUrl;
+
+    if (contentSyncUrl && manifestId) {
+      previewUrl = `${contentSyncUrl}/gatsby-source-datocms/${manifestId}`;
+    }
+
+    return previewUrl;
+  }
+
+  handleContentSync = () => {
+    const previewUrl = this.getPreviewUrl();
+
+    console.info(`opening preview url ${previewUrl}`);
+    window.open(previewUrl, GATSBY_PREVIEW_TAB_ID);
   }
 
   slugChange(newValue) {
@@ -88,7 +140,7 @@ export default class Main extends Component {
     const { plugin } = this.props;
     const {
       parameters: {
-        global: { instanceUrl, authToken },
+        global: { contentSyncUrl, authToken },
       },
     } = plugin;
     const { initalValue, contentSlug } = this.state;
@@ -97,9 +149,15 @@ export default class Main extends Component {
       <div className="container">
         <h1>Gatsby Cloud</h1>
         <ExtensionUI
+          disablePreviewOpen={!!contentSyncUrl}
           contentSlug={contentSlug || initalValue}
-          previewUrl={instanceUrl}
+          previewUrl={this.getPreviewUrl()}
           authToken={authToken}
+          onOpenPreviewButtonClick={
+            contentSyncUrl
+              ? this.handleContentSync
+              : () => {}
+          }
         />
       </div>
     );
