@@ -1,7 +1,7 @@
 {
   "name": "datocms-plugin-gatsby-cloud",
   "homepage": "https://github.com/gatsby-inc/datocms-plugin-gatsby-cloud",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Plugin that allows access to Gatsby Cloud Preview instances",
   "main": "index.js",
   "scripts": {
