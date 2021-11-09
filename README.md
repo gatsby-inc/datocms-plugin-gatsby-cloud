@@ -20,7 +20,7 @@ This is where the "Enable draft/published system" Option is selected. So that ch
 
 Last step will be adding the "Open Preview" button to the Model. Click on the model you wish to add it to, add a new JSON field. Name it "Gatsby Preview", click on the Presentation tab and select Gatsby Cloud as the field editor.
 
-![Configuration screenshot](model-screenshot.png)
+![Configuration screenshot](https://user-images.githubusercontent.com/51924260/140951021-8c20db29-b162-4f8b-9b02-1438d98532b9.png)
 
 ## Plugin 
 
