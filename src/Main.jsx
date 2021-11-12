@@ -76,8 +76,8 @@ export default class Main extends Component {
   }
 
   componentWillUnmount() {
-    const { slugField, updatedAt } = this.state;
-    if (slugField || updatedAt) {
+    const { slugField } = this.state;
+    if (slugField) {
       this.unsubscribe();
     }
   }
