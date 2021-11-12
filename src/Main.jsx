@@ -23,7 +23,7 @@ export default class Main extends Component {
       contentSlug: '',
       initalValue: '',
       slugField: '',
-      manifestId: '',
+      updatedAt: '',
     };
     this.slugChange = this.slugChange.bind(this);
   }
@@ -33,7 +33,6 @@ export default class Main extends Component {
 
     const {
       itemType,
-      itemId,
       item,
       fields,
       locale,
@@ -46,8 +45,6 @@ export default class Main extends Component {
     const slugField = itemType.relationships.fields.data
       .map(link => fields[link.id])
       .find(f => f.attributes.field_type === 'slug');
-
-    this.setManifestId(itemId, item);
 
     if (!slugField) {
       if (developmentMode) {
@@ -72,36 +69,32 @@ export default class Main extends Component {
     this.setState({
       slugField,
       initalValue: plugin.getFieldValue(fieldPath),
+      updatedAt: item.meta.updated_at,
     });
 
     this.unsubscribe = plugin.addFieldChangeListener(fieldPath, this.slugChange);
   }
 
-  componentDidUpdate(prevProps) {
-    const { plugin: prevPlugin } = prevProps;
-    const { plugin } = this.props;
-    const { itemId, item } = plugin;
-
-    const getUpdatedAt = (currentPlugin) => {
-      const { item: currentItem } = currentPlugin;
-      return currentItem.meta.updatedAt;
-    };
-
-    if (getUpdatedAt(plugin) !== getUpdatedAt(prevPlugin)) {
-      this.setManifestId(itemId, item);
-    }
-  }
-
   componentWillUnmount() {
-    const { slugField } = this.state;
-    if (slugField) {
+    const { slugField, updatedAt } = this.state;
+    if (slugField || updatedAt) {
       this.unsubscribe();
     }
   }
 
-  setManifestId = (itemId, item) => {
-    const manifestId = `${itemId}-${item.meta.updated_at}`;
-    this.setState({ manifestId });
+  getManifestId = () => {
+    const { plugin } = this.props;
+    const { item, itemId } = plugin;
+    const { updatedAt } = this.state;
+    const newUpdatedAt = item.meta.updated_at;
+
+    let manifestId = `${itemId}-${updatedAt}`;
+    if (newUpdatedAt !== updatedAt) {
+      this.updatedAtChange(newUpdatedAt);
+      manifestId = `${itemId}-${newUpdatedAt}`;
+    }
+
+    return manifestId;
   }
 
   getPreviewUrl = () => {
@@ -111,10 +104,9 @@ export default class Main extends Component {
         global: { instanceUrl, contentSyncUrl },
       },
     } = plugin;
-    const { manifestId } = this.state;
+    const manifestId = this.getManifestId();
 
     let previewUrl = instanceUrl;
-
     if (contentSyncUrl && manifestId) {
       previewUrl = `${contentSyncUrl}/gatsby-source-datocms/${manifestId}`;
     }
@@ -135,6 +127,12 @@ export default class Main extends Component {
     });
   }
 
+  updatedAtChange(newValue) {
+    this.setState({
+      updatedAt: newValue,
+    });
+  }
+
 
   render() {
     const { plugin } = this.props;
@@ -151,7 +149,7 @@ export default class Main extends Component {
         <ExtensionUI
           disablePreviewOpen={!!contentSyncUrl}
           contentSlug={contentSlug || initalValue}
-          previewUrl={this.getPreviewUrl()}
+          previewUrl={this.getPreviewUrl}
           authToken={authToken}
           onOpenPreviewButtonClick={
             contentSyncUrl
