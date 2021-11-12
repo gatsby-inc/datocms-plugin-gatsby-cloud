@@ -149,7 +149,7 @@ export default class Main extends Component {
         <ExtensionUI
           disablePreviewOpen={!!contentSyncUrl}
           contentSlug={contentSlug || initalValue}
-          previewUrl={this.getPreviewUrl}
+          previewUrl={this.getPreviewUrl()}
           authToken={authToken}
           onOpenPreviewButtonClick={
             contentSyncUrl
