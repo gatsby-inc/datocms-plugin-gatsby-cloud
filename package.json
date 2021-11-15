@@ -38,28 +38,20 @@
     "parameters": {
       "global": [
         {
-          "id": "developmentMode",
-          "label": "Development mode",
-          "type": "boolean",
-          "required": true,
-          "default": false,
-          "hint": "Shows debug messages in console"
-        },
-        {
           "id": "instanceUrl",
           "label": "Gatsby Preview instance url",
           "type": "string",
-          "required": true,
+          "required": false,
           "default": false,
           "hint": "The url of a Gatsby Cloud Preview instance"
         },
         {
           "id": "contentSyncUrl",
-          "label": "Content Sync URL (BETA Feature)",
+          "label": "Content Sync URL",
           "type": "string",
           "required": false,
           "default": false,
-          "hint": "https://gatsby.dev/datocms-preview-docs"
+          "hint": "Find this in your Gatsby Cloud Settings, https://www.gatsbyjs.com/docs/conceptual/content-sync/"
         },
         {
           "id": "authToken",
