@@ -103,12 +103,14 @@ export default class Main extends Component {
       parameters: {
         global: { instanceUrl, contentSyncUrl },
       },
+      itemType: { type },
+      itemId,
     } = plugin;
     const manifestId = this.getManifestId();
 
     let previewUrl = instanceUrl;
     if (contentSyncUrl && manifestId) {
-      previewUrl = `${contentSyncUrl}/gatsby-source-datocms/${manifestId}`;
+      previewUrl = `${contentSyncUrl}/gatsby-source-datocms/${manifestId}/${type}-${itemId}`;
     }
 
     return previewUrl;
